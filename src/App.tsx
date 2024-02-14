@@ -1,62 +1,44 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
-import { HeaderUI } from "./components/header/Header";
+
 import { Home } from "./pages/Home/Home";
 import { Todos } from "./pages/todos/Todos";
 import { Login } from "./pages/Login/Login";
-import { ChangeEvent, useState } from "react";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "./store/userSlice/userSlice";
+import { ProtectedLogin } from "./components/protectedLogin/ProtectedLogin";
+import { UserSlice } from "./types/Types";
 
 function App() {
-  const [username, setUsername] = useState<string>("");
+  const isAuth = useSelector((state: UserSlice) => state.user.isAuth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const navigateToUser = () => {
-    if (username.trim() !== "") {
-      localStorage.setItem("user", JSON.stringify(username));
-      navigate("/todos", { replace: true });
-    }
+    navigate("/", { replace: true });
+    dispatch(setUser(true));
   };
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
-  const headerClick = () => {
-    localStorage.removeItem("user");
-    navigate("/login", { replace: true });
-  };
   return (
     <>
-      <HeaderUI onClick={headerClick} />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
         <Route
           path="/login"
           element={
-            <Login
-              value={username}
-              onClick={navigateToUser}
-              onChange={onChange}
-            />
+            <ProtectedLogin onlyFor={isAuth}>
+              <Login onClick={navigateToUser} />
+            </ProtectedLogin>
           }
-        />
-        <Route
-          path="/todos"
-          element={
-            <ProtectedRoute>
-              <Todos />
-            </ProtectedRoute>
-          }
-        />
+        ></Route>
+
+        <Route path="/" element={<ProtectedRoute onlyFor={isAuth} />}>
+          <Route path="/" element={<Home />} />
+        </Route>
+        <Route path="/todos" element={<ProtectedRoute onlyFor={isAuth} />}>
+          <Route path="/todos" element={<Todos />} />
+        </Route>
       </Routes>
     </>
   );
 }
-
 export default App;

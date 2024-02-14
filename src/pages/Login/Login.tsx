@@ -1,13 +1,14 @@
 import { Button, Form, Input } from "antd";
 import styles from "./Login.module.css";
-import { ChangeEventHandler, MouseEventHandler } from "react";
+import { ChangeEventHandler, MouseEventHandler, useEffect } from "react";
+import { useSelector } from "react-redux";
 export type props = {
   onClick: MouseEventHandler;
-  onChange: ChangeEventHandler;
-  value: string;
+  // onChange: ChangeEventHandler;
+  // value: string;
 };
 
-export const Login = ({ onClick, onChange, value }: props) => {
+export const Login = ({ onClick }: props) => {
   return (
     <div className={styles.login}>
       <Form className={styles.form}>
@@ -15,8 +16,6 @@ export const Login = ({ onClick, onChange, value }: props) => {
           className={styles.input}
           type="text"
           placeholder="Enter your username"
-          value={value}
-          onChange={onChange}
         ></Input>
         <Input
           className={styles.input}

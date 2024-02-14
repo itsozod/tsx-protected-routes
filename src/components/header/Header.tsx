@@ -1,15 +1,18 @@
 import styles from "./Header.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button, Layout } from "antd";
-import { MouseEventHandler } from "react";
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../../store/userSlice/userSlice";
 
-type ButtonProp = {
-  onClick: MouseEventHandler<HTMLButtonElement>;
-};
-
-export const HeaderUI = ({ onClick }: ButtonProp) => {
+export const HeaderUI = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const logOut = () => {
+    localStorage.removeItem("auth");
+    navigate("/login", { replace: true });
+    dispatch(logOutUser(false));
+  };
   const { Header } = Layout;
-  const user = localStorage.getItem("user");
   return (
     <>
       <Header className={styles.header}>
@@ -39,9 +42,9 @@ export const HeaderUI = ({ onClick }: ButtonProp) => {
                 Todos
               </NavLink>
             </li>
-            {user && <Button onClick={onClick}>Log out</Button>}
           </ul>
         </nav>
+        <Button onClick={logOut}>Log out</Button>
       </Header>
     </>
   );

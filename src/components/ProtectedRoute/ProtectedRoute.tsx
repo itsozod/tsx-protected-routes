@@ -1,13 +1,13 @@
-import { PropsWithChildren, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { Wrapper } from "../wrapper/Wrapper";
+import { ProtectedRouteProps } from "../../types/Types";
 
-export const ProtectedRoute = ({ children }: PropsWithChildren) => {
-  const navigate = useNavigate();
-  const user = localStorage.getItem("user");
-  useEffect(() => {
-    if (!user) {
-      navigate("/login", { replace: true });
-    }
-  }, [navigate, user]);
-  return children;
+export const ProtectedRoute = ({ onlyFor }: ProtectedRouteProps) => {
+  return onlyFor ? (
+    <Wrapper>
+      <Outlet />
+    </Wrapper>
+  ) : (
+    <Navigate to="/login" replace={true} />
+  );
 };
