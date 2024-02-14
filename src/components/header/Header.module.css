@@ -1,0 +1,16 @@
+.header {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ul_header {
+  display: flex;
+  align-items: center;
+}
+.list {
+  list-style-type: none;
+  margin: 10px;
+  font-size: 20px;
+}
