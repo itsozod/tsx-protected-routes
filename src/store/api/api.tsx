@@ -4,11 +4,21 @@ import { Todo } from "../../types/Types";
 export const todosApi = createApi({
   reducerPath: "todos",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
+  tagTypes: ["Todos"],
   endpoints: (builder) => ({
     getTodos: builder.query<Todo[], void>({
       query: () => "/todos",
+      providesTags: ["Todos"],
+    }),
+    deleteTodos: builder.mutation({
+      query: (todo) => ({
+        url: `/todos/${todo.id}`,
+        method: "DELETE",
+        body: todo.id,
+      }),
+      invalidatesTags: ["Todos"],
     }),
   }),
 });
 
-export const { useGetTodosQuery } = todosApi;
+export const { useGetTodosQuery, useDeleteTodosMutation } = todosApi;

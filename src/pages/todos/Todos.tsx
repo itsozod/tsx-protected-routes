@@ -1,17 +1,27 @@
 import { Button } from "antd";
-import { useGetTodosQuery } from "../../store/api/api";
+import { useDeleteTodosMutation, useGetTodosQuery } from "../../store/api/api";
 import styles from "./Todos.module.scss";
+// import { useDispatch } from "react-redux";
 
 export const Todos = () => {
   const { data } = useGetTodosQuery();
+  // const dispatch = useDispatch();
+  const [deleteTodo] = useDeleteTodosMutation();
   return (
     <div className={styles.todos_container}>
       {data?.map((todo) => {
         return (
           <div className={styles.todo_card} key={todo.id}>
             <p>{todo.title}</p>
-            <Button className={styles.todo_card__edit_btn}>Edit</Button>
-            <Button className={styles.todo_card__delete_btn}>Delete</Button>
+            <div className={styles.button_container}>
+              <Button className={styles.edit_btn}>Edit</Button>
+              <Button
+                className={styles.delete_btn}
+                onClick={() => deleteTodo(todo)}
+              >
+                Delete
+              </Button>
+            </div>
           </div>
         );
       })}

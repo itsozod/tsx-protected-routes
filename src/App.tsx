@@ -24,11 +24,7 @@ function App() {
       <Routes>
         <Route
           path="/login"
-          element={
-            <ProtectedLogin onlyFor={isAuth}>
-              <Login onClick={navigateToUser} />
-            </ProtectedLogin>
-          }
+          element={<Login onClick={navigateToUser} />}
         ></Route>
 
         <Route path="/" element={<ProtectedRoute onlyFor={isAuth} />}>

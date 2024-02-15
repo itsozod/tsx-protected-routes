@@ -1,19 +1,25 @@
 .todos_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 600px;
   margin: 10px;
 }
 .todo_card {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background-color: bisque;
   margin: 10px;
   padding: 10px;
   gap: 10px;
-
-  &__edit_btn {
-    background-color: brown;
-  }
-  &__delete_btn {
-    background-color: aquamarine;
-  }
+  border-radius: 12px;
+  width: 100%;
+}
+.button_container {
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
