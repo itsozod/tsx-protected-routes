@@ -1,3 +1,7 @@
+.full_container {
+  flex-direction: column;
+  justify-content: center;
+}
 .todos_container {
   display: flex;
   justify-content: center;
@@ -19,7 +23,6 @@
 }
 .todo_title {
   cursor: pointer;
-  // text-decoration: line-through;
 }
 .button_container {
   gap: 10px;

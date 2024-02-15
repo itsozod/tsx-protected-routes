@@ -6,10 +6,21 @@ export const todosApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
   tagTypes: ["Todos"],
   endpoints: (builder) => ({
+    // get request to get todos
     getTodos: builder.query<Todo[], void>({
       query: () => "/todos",
       providesTags: ["Todos"],
     }),
+    // post request to post a todo
+    addTodos: builder.mutation({
+      query: (todo) => ({
+        url: "/todos",
+        method: "POST",
+        body: todo,
+      }),
+      invalidatesTags: ["Todos"],
+    }),
+    // delete request to delete a specific todo
     deleteTodos: builder.mutation({
       query: (todo) => ({
         url: `/todos/${todo.id}`,
@@ -18,6 +29,7 @@ export const todosApi = createApi({
       }),
       invalidatesTags: ["Todos"],
     }),
+    // put request to edit the specific todo from read to unread or vice verca
     checkTodos: builder.mutation({
       query: (todo) => ({
         url: `/todos/${todo.id}`,
@@ -26,6 +38,7 @@ export const todosApi = createApi({
       }),
       invalidatesTags: ["Todos"],
     }),
+    // put request to edit the name of the specific todo
     editTodos: builder.mutation({
       query: (todo) => ({
         url: `/todos/${todo.id}`,
@@ -42,4 +55,5 @@ export const {
   useDeleteTodosMutation,
   useCheckTodosMutation,
   useEditTodosMutation,
+  useAddTodosMutation,
 } = todosApi;

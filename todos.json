@@ -1,13 +1,8 @@
 {
   "todos": [
     {
-      "id": "2",
-      "title": "jsx",
-      "done": true
-    },
-    {
       "id": "3",
-      "title": "TS",
+      "title": "TSX",
       "done": true
     },
     {
