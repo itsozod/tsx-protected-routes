@@ -2,18 +2,18 @@
   "todos": [
     {
       "id": "2",
-      "title": "redux toolkit",
-      "done": false
+      "title": "jsx",
+      "done": true
     },
     {
       "id": "3",
       "title": "TS",
-      "done": false
+      "done": true
     },
     {
       "id": "4",
       "title": "JS",
-      "done": false
+      "done": true
     }
   ]
 }

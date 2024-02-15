@@ -1,30 +1,65 @@
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import {
   useDeleteTodosMutation,
-  useEditTodosMutation,
+  useCheckTodosMutation,
   useGetTodosQuery,
+  useEditTodosMutation,
 } from "../../store/api/api";
 import styles from "./Todos.module.scss";
-// import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 export const Todos = () => {
+  const [edit, setEdit] = useState<boolean>(false);
+  const [editValue, setEditValue] = useState<string>("");
   const { data } = useGetTodosQuery();
+  const [checkTodo] = useCheckTodosMutation();
   const [editTodo] = useEditTodosMutation();
   const [deleteTodo] = useDeleteTodosMutation();
+
+  const getEditValue = (title: string) => {
+    setEditValue(title);
+    setEdit(true);
+  };
+
+  const submitTodo = (todo) => {
+    editTodo({ ...todo, title: editValue });
+    setEdit(false);
+  };
+
   return (
     <div className={styles.todos_container}>
       {data?.map((todo) => {
         return (
           <div className={styles.todo_card} key={todo.id}>
-            <p
-              style={{ textDecoration: todo.done ? "line-through" : "none" }}
-              onClick={() => editTodo({ ...todo, done: !todo.done })}
-              className={styles.todo_title}
-            >
-              {todo.title}
-            </p>
+            {edit ? (
+              <Input
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+              >
+                {/* {todo.title} */}
+              </Input>
+            ) : (
+              <p
+                style={{ textDecoration: todo.done ? "line-through" : "none" }}
+                onClick={() => checkTodo({ ...todo, done: !todo.done })}
+                className={styles.todo_title}
+              >
+                {todo.title}
+              </p>
+            )}
+
             <div className={styles.button_container}>
-              <Button className={styles.edit_btn}>Edit</Button>
+              {edit ? (
+                <Button onClick={() => submitTodo(todo)}>Submit</Button>
+              ) : (
+                <Button
+                  className={styles.edit_btn}
+                  onClick={() => getEditValue(todo.title)}
+                >
+                  Edit
+                </Button>
+              )}
+
               <Button
                 className={styles.delete_btn}
                 onClick={() => deleteTodo(todo)}
