@@ -6,7 +6,7 @@ import { Todos } from "./pages/todos/Todos";
 import { Login } from "./pages/Login/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "./store/userSlice/userSlice";
+import { setUser } from "./store/features/userSlice/userSlice";
 import { ProtectedLogin } from "./components/protectedLogin/ProtectedLogin";
 import { UserSlice } from "./types/Types";
 

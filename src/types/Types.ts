@@ -15,3 +15,9 @@ export type ProtectedLoginProps = {
 export type ProtectedRouteProps = {
   onlyFor: boolean | string;
 };
+
+export type Todo = {
+  id: string;
+  title: string;
+  done: boolean;
+};

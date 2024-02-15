@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IsAuth } from "../../types/Types";
+import { IsAuth } from "../../../types/Types";
 
 const initialState: IsAuth = {
   isAuth: localStorage.getItem("auth") || false,
@@ -15,6 +15,7 @@ export const userSlice = createSlice({
     },
     logOutUser: (state, { payload }) => {
       state.isAuth = payload;
+      localStorage.removeItem("auth");
     },
   },
 });
