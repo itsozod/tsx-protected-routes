@@ -7,6 +7,7 @@ import {
 } from "../../store/api/api";
 import styles from "./Todos.module.scss";
 import { useState } from "react";
+import { Todo } from "../../types/Types";
 
 export const Todos = () => {
   const [edit, setEdit] = useState<boolean>(false);
@@ -21,7 +22,7 @@ export const Todos = () => {
     setEdit(true);
   };
 
-  const submitTodo = (todo) => {
+  const submitTodo = (todo: Todo) => {
     editTodo({ ...todo, title: editValue });
     setEdit(false);
   };
