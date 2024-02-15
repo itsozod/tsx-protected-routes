@@ -17,6 +17,10 @@
   border-radius: 12px;
   width: 100%;
 }
+.todo_title {
+  cursor: pointer;
+  // text-decoration: line-through;
+}
 .button_container {
   gap: 10px;
   display: flex;
