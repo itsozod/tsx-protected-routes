@@ -5,32 +5,19 @@ import { Home } from "./pages/Home/Home";
 import { Todos } from "./pages/todos/Todos";
 import { Login } from "./pages/Login/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "./store/features/userSlice/userSlice";
-import { ProtectedLogin } from "./components/protectedLogin/ProtectedLogin";
-import { UserSlice } from "./types/Types";
+import { useSelector } from "react-redux";
 
 function App() {
-  const isAuth = useSelector((state: UserSlice) => state.user.isAuth);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const navigateToUser = () => {
-    navigate("/", { replace: true });
-    dispatch(setUser(true));
-  };
-
+  const accessToken = useSelector((state) => state.auth.accessToken);
   return (
     <>
       <Routes>
-        <Route
-          path="/login"
-          element={<Login onClick={navigateToUser} />}
-        ></Route>
+        <Route path="/login" element={<Login />}></Route>
 
-        <Route path="/" element={<ProtectedRoute onlyFor={isAuth} />}>
+        <Route path="/" element={<ProtectedRoute onlyFor={accessToken} />}>
           <Route path="/" element={<Home />} />
         </Route>
-        <Route path="/todos" element={<ProtectedRoute onlyFor={isAuth} />}>
+        <Route path="/todos" element={<ProtectedRoute onlyFor={accessToken} />}>
           <Route path="/todos" element={<Todos />} />
         </Route>
       </Routes>

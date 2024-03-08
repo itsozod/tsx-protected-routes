@@ -2,14 +2,14 @@ import styles from "./Header.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button, Layout } from "antd";
 import { useDispatch } from "react-redux";
-import { logOutUser } from "../../store/features/userSlice/userSlice";
+import { removeToken } from "../../store/features/authAlice/authSlice";
 
 export const HeaderUI = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const logOut = () => {
+    dispatch(removeToken(null));
     navigate("/login", { replace: true });
-    dispatch(logOutUser(false));
   };
   const { Header } = Layout;
   return (
