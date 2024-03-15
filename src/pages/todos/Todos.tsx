@@ -9,6 +9,7 @@ import styles from "./Todos.module.scss";
 import { useState } from "react";
 import { Todo } from "../../types/Types";
 import { AddTodo } from "../../components/addTodo/AddTodo";
+import { TodosHome } from "../../components/todosHome/TodosHome";
 
 export const Todos = () => {
   const [edit, setEdit] = useState<null | string>(null);
@@ -78,6 +79,7 @@ export const Todos = () => {
             </div>
           );
         })}
+        <TodosHome />
       </div>
     </Flex>
   );

@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
 import { Home } from "./pages/Home/Home";
@@ -6,6 +6,8 @@ import { Todos } from "./pages/todos/Todos";
 import { Login } from "./pages/Login/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import { useSelector } from "react-redux";
+import { SingleTodo } from "./components/SingleTodo/SingleTodo";
+// import { SingleTodo } from "./components/SingleTodo/SingleTodo";
 
 function App() {
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -19,6 +21,7 @@ function App() {
         </Route>
         <Route path="/todos" element={<ProtectedRoute onlyFor={accessToken} />}>
           <Route path="/todos" element={<Todos />} />
+          <Route path="/todos:todoId" element={<SingleTodo />} />
         </Route>
       </Routes>
     </>

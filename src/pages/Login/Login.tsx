@@ -9,20 +9,16 @@ import { useNavigate } from "react-router-dom";
 export const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("eve.holt@reqres.in");
+  const [password, setPassword] = useState("cityslicka");
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     console.log("Hello");
-    const obj = {
-      email: username,
-      password: password,
-    };
     try {
-      const result = await login(obj);
+      const result = await login({ username, password });
       dispatch(setToken(result.data.token));
-      console.log(result.data.token);
+      console.log(result);
       navigate("/");
     } catch (error) {
       console.log(error);
