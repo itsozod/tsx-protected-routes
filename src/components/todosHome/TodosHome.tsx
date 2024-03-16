@@ -16,8 +16,8 @@ export const TodosHome = () => {
     <>
       {todos?.map((todo) => {
         return (
-          <Link key={todo.id} to={`/todos/${todo.id}`}>
-            {todo.title}
+          <Link key={todo?.id} to={`/todos/${todo?.id}`}>
+            {todo?.title}
           </Link>
         );
       })}

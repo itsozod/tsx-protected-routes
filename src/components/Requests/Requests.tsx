@@ -1,24 +1,24 @@
 import { Flex, Select } from "antd";
-import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { RequestData } from "../RequestData/RequestData";
+import {
+  useLazyGetTodosRequestIdQuery,
+  useLazyGetTodosRequestQuery,
+} from "../../store/api/api";
+import { useEffect } from "react";
 
 export const Requests = () => {
-  const [todos, setTodos] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [getTodosRequest, { data }] = useLazyGetTodosRequestQuery();
+  const [getTodosRequestId] = useLazyGetTodosRequestIdQuery();
+  const mappedData = data?.map((todo) => ({
+    value: todo.id,
+    label: todo.title,
+  }));
 
   useEffect(() => {
-    const getTodos = async () => {
-      const res = await fetch("http://localhost:3000/todos");
-      const data = await res.json();
-      const mappedData = data.map((todo) => ({
-        value: todo.id,
-        label: todo.title,
-      }));
-      setTodos(mappedData);
-    };
-    getTodos();
-  }, []);
+    getTodosRequest();
+  }, [getTodosRequest]);
   const id = searchParams.get("id");
   console.log(id);
   return (
@@ -26,12 +26,13 @@ export const Requests = () => {
       <Flex vertical={true} justify="center" align="center">
         <Select
           style={{ width: "200px" }}
-          options={todos}
+          options={mappedData}
           value={id}
           placeholder={"Choose a name"}
           onChange={(value) => {
             searchParams.set("id", value);
             setSearchParams(searchParams);
+            getTodosRequestId(value);
           }}
         />
         <RequestData />

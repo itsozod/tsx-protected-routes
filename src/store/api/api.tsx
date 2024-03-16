@@ -11,6 +11,12 @@ export const todosApi = createApi({
       query: () => "/todos",
       providesTags: ["Todos"],
     }),
+    getTodosRequest: builder.query<Todo[], void>({
+      query: () => "/todos",
+    }),
+    getTodosRequestId: builder.query<Todo[], string>({
+      query: (id) => `todos/${id}`,
+    }),
     // post request to post a todo
     addTodos: builder.mutation({
       query: (todo) => ({
@@ -56,4 +62,6 @@ export const {
   useCheckTodosMutation,
   useEditTodosMutation,
   useAddTodosMutation,
+  useLazyGetTodosRequestQuery,
+  useLazyGetTodosRequestIdQuery,
 } = todosApi;
