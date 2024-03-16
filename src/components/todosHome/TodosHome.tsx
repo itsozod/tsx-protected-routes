@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const TodosHome = () => {
   const [todos, setTodos] = useState([]);
@@ -15,7 +15,11 @@ export const TodosHome = () => {
   return (
     <>
       {todos?.map((todo) => {
-        return <Link to={`/todos/${todo.id}`}>{todo.title}</Link>;
+        return (
+          <Link key={todo.id} to={`/todos/${todo.id}`}>
+            {todo.title}
+          </Link>
+        );
       })}
     </>
   );

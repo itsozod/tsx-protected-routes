@@ -7,7 +7,7 @@ import { Login } from "./pages/Login/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import { useSelector } from "react-redux";
 import { SingleTodo } from "./components/SingleTodo/SingleTodo";
-// import { SingleTodo } from "./components/SingleTodo/SingleTodo";
+import { Requests } from "./components/Requests/Requests";
 
 function App() {
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -22,6 +22,12 @@ function App() {
         <Route path="/todos" element={<ProtectedRoute onlyFor={accessToken} />}>
           <Route path="/todos" element={<Todos />} />
           <Route path="/todos:todoId" element={<SingleTodo />} />
+        </Route>
+        <Route
+          path="/requests"
+          element={<ProtectedRoute onlyFor={accessToken} />}
+        >
+          <Route path="/requests" element={<Requests />} />
         </Route>
       </Routes>
     </>

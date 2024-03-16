@@ -41,6 +41,18 @@ export const HeaderUI = () => {
                 Todos
               </NavLink>
             </li>
+            <li className={styles.list}>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive
+                    ? { color: "#15cdfc", borderBottom: "2px solid white" }
+                    : {};
+                }}
+                to={"/requests"}
+              >
+                Requests
+              </NavLink>
+            </li>
           </ul>
         </nav>
         <Button onClick={logOut}>Log out</Button>

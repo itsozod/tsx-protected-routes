@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 export const SingleTodo = () => {
   const [todo, setTodos] = useState({});
   const { todoId } = useParams();
+  const [params, setParams] = useSearchParams();
 
   useEffect(() => {
     const getTodos = async () => {
@@ -13,9 +14,17 @@ export const SingleTodo = () => {
     };
     getTodos();
   }, [todoId]);
+
   return (
     <>
-      <p>{todo.title}</p>
+      <div
+        onClick={() => {
+          params.set("name", todo.title);
+          setParams(params);
+        }}
+      >
+        {todo.title}
+      </div>
     </>
   );
 };
