@@ -7,7 +7,7 @@ export type UserSlice = {
 };
 
 export type ProtectedRouteProps = {
-  onlyFor: boolean | string;
+  onlyFor: null | string;
 };
 
 export type Todo = {

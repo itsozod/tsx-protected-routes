@@ -19,6 +19,7 @@ export const todosApi = createApi({
       query: (id) => `todos/${id}`,
       providesTags: ["Todos"],
     }),
+
     // post request to post a todo
     addTodos: builder.mutation({
       query: (todo) => ({

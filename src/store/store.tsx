@@ -3,6 +3,8 @@ import { userSlice } from "./features/userSlice/userSlice";
 import { todosApi } from "./api/api";
 import { authSlice } from "./features/authAlice/authSlice";
 import { authApi } from "./api/authApi";
+import { TypedUseSelectorHook, useSelector } from "react-redux";
+
 export const store = configureStore({
   reducer: {
     user: userSlice.reducer,
@@ -13,3 +15,6 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(todosApi.middleware, authApi.middleware),
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;

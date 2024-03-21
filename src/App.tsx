@@ -5,12 +5,12 @@ import { Home } from "./pages/Home/Home";
 import { Todos } from "./pages/todos/Todos";
 import { Login } from "./pages/Login/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
-import { useSelector } from "react-redux";
 import { SingleTodo } from "./components/SingleTodo/SingleTodo";
 import { Requests } from "./components/Requests/Requests";
+import { useTypedSelector } from "./store/store";
 
 function App() {
-  const accessToken = useSelector((state) => state.auth.accessToken);
+  const accessToken = useTypedSelector((state) => state.auth.accessToken);
   return (
     <>
       <Routes>

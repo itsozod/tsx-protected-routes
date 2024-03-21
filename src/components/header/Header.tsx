@@ -12,6 +12,7 @@ export const HeaderUI = () => {
     navigate("/login", { replace: true });
   };
   const { Header } = Layout;
+
   return (
     <>
       <Header className={styles.header}>

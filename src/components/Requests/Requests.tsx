@@ -15,12 +15,13 @@ export const Requests = () => {
     value: todo.id,
     label: todo.title,
   }));
+  const id = searchParams.get("id");
+  console.log(id);
 
   useEffect(() => {
     getTodosRequest();
   }, [getTodosRequest]);
-  const id = searchParams.get("id");
-  console.log(id);
+
   return (
     <>
       <Flex vertical={true} justify="center" align="center">
