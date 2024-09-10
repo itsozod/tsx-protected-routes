@@ -1,22 +1,32 @@
 import { Button, Flex, Form, Input, Typography } from "antd";
 import styles from "./Login.module.css";
-import { useLoginMutation } from "../../store/api/authApi";
+// import { useLoginMutation } from "../../store/api/authApi";
 import { useDispatch } from "react-redux";
-import { setToken } from "../../store/features/authAlice/authSlice";
+import { setRefresh, setToken } from "../../store/features/authAlice/authSlice";
 import { useNavigate } from "react-router-dom";
 import { z, ZodType } from "zod";
 import { useForm } from "react-hook-form";
 import { FormItem } from "react-hook-form-antd";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoginApi } from "../../store/api/loginApi";
+const { useLoginMutation } = LoginApi;
 
 export type FormData = {
-  email: string;
+  username: string;
   password: string;
 };
-
+// const login = async (obj) => {
+//   const res = await fetch("https://dummyjson.com/auth/login", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(obj),
+//   });
+//   const data = await res.json();
+//   return data;
+// };
 export const Login = () => {
   const schema: ZodType<FormData> = z.object({
-    email: z.string().email(),
+    username: z.string(),
     password: z.string().min(5).max(10),
   });
 
@@ -25,7 +35,8 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const { control, handleSubmit } = useForm<FormData>({
-    defaultValues: { email: "eve.holt@reqres.in", password: "cityslicka" },
+    // defaultValues: { email: "eve.holt@reqres.in", password: "cityslicka" },
+    defaultValues: { username: "emilys", password: "emilyspass" },
     resolver: zodResolver(schema),
   });
 
@@ -33,10 +44,12 @@ export const Login = () => {
     console.log("Hello", datas);
     try {
       const result = await login({
-        email: datas.email,
+        username: datas.username,
         password: datas.password,
+        expiresInMins: 1,
       });
       dispatch(setToken(result.data.token));
+      dispatch(setRefresh(result.data.refreshToken)); 
       console.log(result);
       navigate("/");
     } catch (error) {
@@ -45,10 +58,15 @@ export const Login = () => {
   };
   return (
     <div className={styles.login}>
-      <Flex vertical={true} justify="center" align="center" style={{border: "1px solid black", padding: "15px"}}>
+      <Flex
+        vertical={true}
+        justify="center"
+        align="center"
+        style={{ border: "1px solid black", padding: "15px" }}
+      >
         <Typography.Title>Login</Typography.Title>
         <Form onFinish={handleSubmit(handleLogin)} className={styles.form}>
-          <FormItem control={control} name="email" style={{ width: "100%" }}>
+          <FormItem control={control} name="username" style={{ width: "100%" }}>
             <Input
               className={styles.input}
               type="text"

@@ -11,6 +11,9 @@ export const RequestData = () => {
     if (id) {
       getTodosRequestId(id);
     }
+    return () => {
+      getTodosRequestId("");
+    };
   }, [id, getTodosRequestId]);
 
   return (

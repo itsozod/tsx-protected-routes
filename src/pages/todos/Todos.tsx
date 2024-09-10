@@ -1,33 +1,36 @@
 import { Button, Flex, Input } from "antd";
 import {
-  useDeleteTodosMutation,
-  useCheckTodosMutation,
+  // useDeleteTodosMutation,
+  // useCheckTodosMutation,
   useGetTodosQuery,
-  useEditTodosMutation,
+  // useEditTodosMutation,
 } from "../../store/api/api";
 import styles from "./Todos.module.scss";
 import { useState } from "react";
 import { Todo } from "../../types/Types";
 import { AddTodo } from "../../components/addTodo/AddTodo";
 import { TodosHome } from "../../components/todosHome/TodosHome";
+import { UsersApi } from "../../store/api/usersApi";
+const { useGetUsersQuery } = UsersApi;
 
 export const Todos = () => {
+  const { data: users } = useGetUsersQuery();
   const [edit, setEdit] = useState<null | string>(null);
   const [editValue, setEditValue] = useState<string>("");
   const { data } = useGetTodosQuery();
-  const [checkTodo] = useCheckTodosMutation();
-  const [editTodo] = useEditTodosMutation();
-  const [deleteTodo] = useDeleteTodosMutation();
+  // const [checkTodo] = useCheckTodosMutation();
+  // const [editTodo] = useEditTodosMutation();
+  // const [deleteTodo] = useDeleteTodosMutation();
 
   const getEditValue = (todo: Todo) => {
     setEditValue(todo.title);
     setEdit(todo.id);
   };
 
-  const submitTodo = (todo: Todo) => {
-    editTodo({ ...todo, title: editValue });
-    setEdit(null);
-  };
+  // const submitTodo = (todo: Todo) => {
+  //   editTodo({ ...todo, title: editValue });
+  //   setEdit(null);
+  // };
 
   return (
     <Flex className={styles.full_container}>
@@ -79,7 +82,7 @@ export const Todos = () => {
             </div>
           );
         })}
-        <TodosHome />
+        {/* <TodosHome /> */}
       </div>
     </Flex>
   );

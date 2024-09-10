@@ -2,13 +2,16 @@ import styles from "./Header.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button, Layout } from "antd";
 import { useDispatch } from "react-redux";
-import { removeToken } from "../../store/features/authAlice/authSlice";
+import {
+  loggedOut,
+  // removeToken,
+} from "../../store/features/authAlice/authSlice";
 
 export const HeaderUI = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const logOut = () => {
-    dispatch(removeToken(null));
+    dispatch(loggedOut());
     navigate("/login", { replace: true });
   };
   const { Header } = Layout;
@@ -52,6 +55,18 @@ export const HeaderUI = () => {
                 to={"/requests"}
               >
                 Requests
+              </NavLink>
+            </li>
+            <li className={styles.list}>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive
+                    ? { color: "#15cdfc", borderBottom: "2px solid white" }
+                    : {};
+                }}
+                to={"/newRequests"}
+              >
+                New Requests
               </NavLink>
             </li>
           </ul>

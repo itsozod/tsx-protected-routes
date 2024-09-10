@@ -1,4 +1,4 @@
-import { Flex, Select } from "antd";
+import { Button, Flex, Select } from "antd";
 import { useSearchParams } from "react-router-dom";
 import { RequestData } from "../RequestData/RequestData";
 import {
@@ -8,6 +8,7 @@ import {
 import { useEffect } from "react";
 
 export const Requests = () => {
+  const ozod = "hello";
   const [searchParams, setSearchParams] = useSearchParams();
   const [getTodosRequest, { data }] = useLazyGetTodosRequestQuery();
   const [getTodosRequestId] = useLazyGetTodosRequestIdQuery();
@@ -37,6 +38,14 @@ export const Requests = () => {
           }}
         />
         <RequestData />
+        <Button
+          onClick={() => {
+            searchParams.set("hello", ozod);
+            setSearchParams(searchParams);
+          }}
+        >
+          Add Something
+        </Button>
       </Flex>
     </>
   );

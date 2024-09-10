@@ -21,14 +21,20 @@ function App() {
         </Route>
         <Route path="/todos" element={<ProtectedRoute onlyFor={accessToken} />}>
           <Route path="/todos" element={<Todos />} />
-          <Route path="/todos:todoId" element={<SingleTodo />} />
+          {/* <Route path="/todos:todoId" element={<SingleTodo />} /> */}
         </Route>
-        <Route
+        {/* <Route
           path="/requests"
           element={<ProtectedRoute onlyFor={accessToken} />}
         >
           <Route path="/requests" element={<Requests />} />
         </Route>
+        <Route
+          path="/newRequests"
+          element={<ProtectedRoute onlyFor={accessToken} />}
+        >
+          <Route path="/newRequests" element={<Requests />} />
+        </Route> */}
       </Routes>
     </>
   );
