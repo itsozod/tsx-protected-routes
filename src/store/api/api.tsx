@@ -7,8 +7,13 @@ export const todosApi = createApi({
   tagTypes: ["Todos"],
   endpoints: (builder) => ({
     // get request to get todos
-    getTodos: builder.query<Todo[], void>({
-      query: () => "/todos",
+    getTodos: builder.query<any, any>({
+      query: (params) => {
+        return {
+          url: `todos?_page=${params.page}`,
+          method: "GET",
+        };
+      },
       providesTags: ["Todos"],
     }),
     getTest: builder.query<any, any>({
@@ -18,23 +23,23 @@ export const todosApi = createApi({
           method: "GET",
         };
       },
-      serializeQueryArgs: ({ queryArgs }) => {
-        const newQueryArgs = { ...queryArgs };
-        if (newQueryArgs.page) {
-          delete newQueryArgs.page;
-        }
-        return newQueryArgs;
-      },
-      merge: (currentCache, newItems) => {
-        if (currentCache) {
-          return [...currentCache, ...newItems];
-        } else return [...newItems];
-      },
+      // serializeQueryArgs: ({ queryArgs }) => {
+      //   const newQueryArgs = { ...queryArgs };
+      //   if (newQueryArgs.page) {
+      //     delete newQueryArgs.page;
+      //   }
+      //   return newQueryArgs;
+      // },
+      // merge: (currentCache, newItems) => {
+      //   if (currentCache) {
+      //     return [...currentCache, ...newItems];
+      //   } else return [...newItems];
+      // },
 
-      // Refetch when the page arg changes
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg;
-      },
+      // // Refetch when the page arg changes
+      // forceRefetch({ currentArg, previousArg }) {
+      //   return currentArg !== previousArg;
+      // },
     }),
 
     // getTodosRequest: builder.query<Todo[], void>({
